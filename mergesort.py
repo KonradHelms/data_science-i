@@ -42,20 +42,25 @@ def merge_sort(list_to_sort_by_merge):
             right_idx += 1
             idx += 1
     return None
-
+    
 
 def plotting(lst):
-    """
-    plots the input list: list index vs. list value 
-    """
-    x = range(len(my_list))
-    plt.plot(x, my_list)
-    plt.xlabel("list index")
-    plt.ylabel("list value")
+    fig,(ax1,ax2) = plt.subplots(figsize=(10,5),ncols=2)
+    fig.suptitle("Comparison", fontsize=20)
+    x = range(len(lst))
+
+    ax1.set_title("before mergesort",fontsize=20)
+    ax1.bar(x, lst,color="navy")
+    ax1.set_xlabel("index", fontsize=20)
+    ax1.set_ylabel("value", fontsize=20)
+    
+    mergeSort(lst)
+    ax2.bar(x,lst,color="crimson")
+    ax2.set_title("after mergesort",fontsize=20)
+    ax2.set_xlabel("index", fontsize=20)
+    ax2.sharey(ax1)
     plt.show()
-    return None
+
 
 my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
 plotting(my_list)
-lst = merge_sort(my_list)
-plotting(lst)
