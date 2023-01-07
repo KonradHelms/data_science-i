@@ -1,46 +1,48 @@
 import matplotlib.pyplot as plt
 
 
-def ASSIGNMENT(new_list, i, old_list, j):
-    new_list[i] = old_list[j]
-
-
-def mergeSort(list_to_sort_by_merge):
-    if (
-        len(list_to_sort_by_merge) > 1
-        and not len(list_to_sort_by_merge) < 1
-        and len(list_to_sort_by_merge) != 0
-    ):
+def merge_sort(list_to_sort_by_merge):
+    """
+    sorts the input list: low -> high values 
+    """
+    if len(list_to_sort_by_merge) > 1:
+        # splits the input list into two halfs 
         mid = len(list_to_sort_by_merge) // 2
         left = list_to_sort_by_merge[:mid]
         right = list_to_sort_by_merge[mid:]
 
-        mergeSort(left)
-        mergeSort(right)
+        # recursive use of the function 
+        # -> if the lists are longer than 1, it splits them again, until they have length 1
+        merge_sort(left)
+        merge_sort(right)
 
-        l = 0
-        r = 0
-        i = 0
+        left_idx = 0
+        right_idx = 0
+        idx = 0
 
-        while l < len(left) and r < len(right):
-            if left[l] <= right[r]:
-                ASSIGNMENT(new_list=list_to_sort_by_merge, i=i, old_list=left, j=l)
-                l += 1
+        # this compares the entries in the lists of length 1,
+        # and sorts them by value and puts them into the original
+        # list
+        while left_idx < len(left) and right_idx < len(right):
+            if left[left_idx] <= right[right_idx]:
+                list_to_sort_by_merge[idx] = left[left_idx]
+                left_idx += 1
             else:
-                ASSIGNMENT(new_list=list_to_sort_by_merge, i=i, old_list=right, j=r)
-                r += 1
-            i += 1
+                list_to_sort_by_merge[idx] = right[right_idx]
+                right_idx += 1
+            idx += 1
 
-        while l < len(left):
-            list_to_sort_by_merge[i] = left[l]
-            l += 1
-            i += 1
+        while left_idx < len(left):
+            list_to_sort_by_merge[idx] = left[left_idx]
+            left_idx += 1
+            idx += 1
 
-        while r < len(right):
-            list_to_sort_by_merge[i] = right[r]
-            r += 1
-            i += 1
-
+        while right_idx < len(right):
+            list_to_sort_by_merge[idx] = right[right_idx]
+            right_idx += 1
+            idx += 1
+    return None
+    
 
 def plotting(lst):
     fig,(ax1,ax2) = plt.subplots(figsize=(10,5),ncols=2)
