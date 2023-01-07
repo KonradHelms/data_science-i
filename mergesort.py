@@ -1,22 +1,18 @@
 import matplotlib.pyplot as plt
 
-def assignment(new_list, old_list, i, j):
-    """
-    assigns list element j of old list to list element i of new list
-    """
-    new_list[i] = old_list[j]
-    return None 
-
 
 def merge_sort(list_to_sort_by_merge):
     """
     sorts the input list: low -> high values 
     """
     if len(list_to_sort_by_merge) > 1:
+        # splits the input list into two halfs 
         mid = len(list_to_sort_by_merge) // 2
         left = list_to_sort_by_merge[:mid]
         right = list_to_sort_by_merge[mid:]
 
+        # recursive use of the function 
+        # -> if the lists are longer than 1, it splits them again, until they have length 1
         merge_sort(left)
         merge_sort(right)
 
@@ -24,12 +20,15 @@ def merge_sort(list_to_sort_by_merge):
         right_idx = 0
         idx = 0
 
+        # this compares the entries in the lists of length 1,
+        # and sorts them by value and puts them into the original
+        # list
         while left_idx < len(left) and right_idx < len(right):
             if left[left_idx] <= right[right_idx]:
-                assignment(list_to_sort_by_merge, left, idx, left_idx)
+                list_to_sort_by_merge[idx] = left[left_idx]
                 left_idx += 1
             else:
-                assignment(list_to_sort_by_merge, right, idx, right_idx)
+                list_to_sort_by_merge[idx] = right[right_idx]
                 right_idx += 1
             idx += 1
 
